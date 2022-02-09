@@ -1,5 +1,5 @@
 """
-House représente la maison qui contients
+Gère les threads
 """
 import threading
 import time
@@ -21,10 +21,10 @@ def robot_loop(sleep) -> None:
 
 def environment_generator_loop(sleep) -> None:
     """
-    Computes the Fibonacci number for a given index through recursion.
+    Boucle sans fin de l'environment
     """
-    am_i_alive = 1
-    while am_i_alive:
+
+    while 1:
         time.sleep(sleep)
         print("Environment loop")
 
