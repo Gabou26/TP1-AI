@@ -17,7 +17,6 @@ def main() -> None:
 
     while 1:
         time.sleep(1)
-        print("Refresh screen")
 
 
 if __name__ == '__main__':

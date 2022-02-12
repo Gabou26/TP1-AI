@@ -5,7 +5,7 @@ import threading
 import time
 
 from robot import Robot
-
+from generator import Generator
 
 def robot_loop(sleep) -> None:
     """
@@ -23,10 +23,12 @@ def environment_generator_loop(sleep) -> None:
     """
     Boucle sans fin de l'environment
     """
+    generator = Generator()
+    generator.boot()
 
-    while 1:
+    while generator.am_i_alive:
         time.sleep(sleep)
-        print("Environment loop")
+        generator.execute()
 
 
 class ThreadManager:
@@ -41,7 +43,7 @@ class ThreadManager:
         Démarre tous les threads
         """
         # Programme le thread sur la function loop
-        generator = threading.Thread(target=environment_generator_loop, args=(self.robot_sleep_second,))
+        generator = threading.Thread(target=environment_generator_loop, args=(self.generator_sleep_second,))
         generator.start()
 
         robot = threading.Thread(target=robot_loop, args=(self.robot_sleep_second,))
