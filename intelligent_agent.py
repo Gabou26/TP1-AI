@@ -4,10 +4,11 @@ DDI
 Etat
 Metrique
 """
+
+
 class IntelligentAgent:
 
     def __call__(self) -> None:
-        #Consctructeur
         return
 
     def start(self):

@@ -1,32 +1,37 @@
 """
-Robot
+Générateur de poussière et bijoux
 """
 import random
 
-from Environment import Environment
+from display import Display
+from environment import Environment
+
 
 class Generator:
     am_i_alive = 1
     name = 'Manoir'
+    dust_generation_rate = 30
+    jewel_generation_rate = 5
 
     def __call__(self) -> None:
         return
 
     def __init__(self):
         print("WSS")
-        self.environment = Environment(5,5)
+        self.environment = Environment(5, 5)
+        self.display = Display()
         return
 
     def execute(self):
         """Check to see if we're adding components to the map"""
-        if (self.should_add_dust()):
+        if self.should_add_dust():
+            print("Dust spawn")
             self.add_item(1)
-        if (self.should_add_jewel()):
+        if self.should_add_jewel():
+            print("Jewel spawn")
             self.add_item(2)
 
-        """Printing map"""
-        print(self.name + ": ")
-        self.show_map()
+        self.display.print(self.environment.get_matrix())
 
     def boot(self) -> None:
         """
@@ -36,9 +41,19 @@ class Generator:
         print("Name :", self.name)
 
     def should_add_dust(self):
-        return True
+        """
+        Nous avons 30 % de chance de généré une poussière
+        """
+        if random.randint(0, 100) < self.dust_generation_rate:
+            return True
+        return False
 
     def should_add_jewel(self):
+        """
+        Nous avons 5 % de chance de généré une un bijou
+        """
+        if random.randint(0, 100) < self.jewel_generation_rate:
+            return True
         return True
 
     def add_item(self, data_id):
@@ -48,6 +63,6 @@ class Generator:
         self.environment.add_slot_data(rand_x, rand_y, data_id)
 
     def show_map(self):
-        map = self.environment.get_map()
-        for y in range(len(map)):
-            print(map[y])
+        matrix = self.environment.get_matrix()
+        for y in range(len(matrix)):
+            print(matrix[y])
