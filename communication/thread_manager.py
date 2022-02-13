@@ -4,15 +4,16 @@ Gère les threads
 import threading
 import time
 
-from robot import Robot
-from generator import Generator
+from simulator import environment
+from simulator.robot import Robot
+from simulator.generator import Generator
+
 
 def robot_loop(sleep) -> None:
     """
     Boucle sans fin du robot
     """
     robot = Robot()
-    robot.boot()
 
     while robot.am_i_alive:
         time.sleep(sleep)

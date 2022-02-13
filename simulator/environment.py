@@ -7,14 +7,17 @@ class Environment:
     length_x = 5
     length_y = 5
     matrix = []
+    robot_position_y = None
+    robot_position_x = None
 
     def __call__(self) -> None:
         return
 
-    def __init__(self, length_x, length_y) -> None:
+    def __init__(self, length_x, length_y, robot_x, robot_y) -> None:
         self.length_x = length_x
         self.length_y = length_y
         self.create_matrix()
+        self.set_robot_position(robot_x, robot_y)
         return
 
     def create_matrix(self):
@@ -49,3 +52,8 @@ class Environment:
 
     def get_size_y(self):
         return self.length_y
+
+    def set_robot_position(self, x, y):
+        self.robot_position_x = x
+        self.robot_position_y = y
+        pass
