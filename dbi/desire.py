@@ -18,6 +18,14 @@ class Desire:
         return
 
     def execute_exploration(self, state: State) -> []:
+
+        # Est-ce que l'agent à accomplis son objectif ?
+        if state.all_peace_is_clean and state.collected_all_jewel:
+            print("Travail terminé !")
+            return []
+
+
+
         # Récupère la position du robot
         x = state.x
         y = state.y

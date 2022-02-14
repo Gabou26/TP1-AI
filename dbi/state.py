@@ -8,7 +8,9 @@ from simulator.environment import Environment
 class State:
     x = None
     y = None
-    action_plan = None;
+    action_plan = None
+    all_peace_is_clean = False
+    collected_all_jewel = False
 
     def __call__(self) -> None:
         return
