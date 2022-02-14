@@ -17,7 +17,7 @@ class Generator:
         return
 
     def __init__(self):
-        print("WSS")
+        random.seed()
         return
 
     def execute(self):

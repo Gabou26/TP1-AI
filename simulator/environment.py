@@ -7,6 +7,10 @@ Légende: Data Environnement
 10-Case Joueur
 """
 
+from exploration.informed import Informed
+from exploration.uninformed import Uninformed
+
+
 class Environment:
     length_x = 5
     length_y = 5
@@ -33,7 +37,15 @@ class Environment:
                 self.matrix[y].append(0)
 
     def get_matrix(self):
-        return self.matrix
+        # Copie de la matrice
+        matrix_robot = []
+        for y in range(len(self.matrix)):
+            matrix_robot.append([])
+            for x in range(len(self.matrix[y])):
+                matrix_robot[y].append(self.matrix[y][x])
+        # Ajout du joueur
+        matrix_robot[self.robot_position_y][self.robot_position_x] += 10
+        return matrix_robot.copy()
 
     def get_slot_data(self, x, y):
         return self.matrix[y][x]
@@ -61,3 +73,13 @@ class Environment:
         self.robot_position_x = x
         self.robot_position_y = y
         pass
+
+    #Temp pour test exploration
+    def test_exploration(self):
+        uninformed = Uninformed()
+        robot_x = 1
+        robot_y = 1
+        dest_x = 3
+        dest_y = 3
+        path = uninformed.calculate_path(robot_x, robot_y, dest_x, dest_y, self.matrix)
+        print("Chemin non-informé : " + str(path))

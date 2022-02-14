@@ -2,8 +2,9 @@
 Utilisé pour le calcul d'exploration informé (A* Pathfinding)
 """
 
+
 class GridNode:
-    path_parent = null #Définit le parent le plus optimisé pour le pathfinding
+    path_parent = None  # Définit le parent le plus optimisé pour le pathfinding
     g_cost = 0
     h_cost = 0
     pos_x = 0
@@ -17,7 +18,6 @@ class GridNode:
         self.pos_y = pos_x
         self.pos_y = pos_y
         self.data_id = data_id
-        return self
 
     def f_cost(self):
         value = self.g_cost + self.h_cost

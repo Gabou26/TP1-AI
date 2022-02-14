@@ -18,22 +18,14 @@ class Display:
         """
         Affichage de la matrice
         """
-        matrix = self.environment_controller.environment.matrix
-        matrix_with_robot = matrix.copy()
-        robot_x = self.environment_controller.environment.robot_position_x
-        robot_y = self.environment_controller.environment.robot_position_y
-        # Affichage du robot : Ajoute 10
-        matrix_with_robot[robot_y][robot_x] += 10
+        matrix = self.environment_controller.environment.get_matrix()
         print('------MAP-------')
-        for y in range(len(matrix_with_robot)):
-            print(matrix_with_robot[y])
+        for y in range(len(matrix)):
+            print(matrix[y])
 
         self.print_metric()
 
         self.print_state()
-        # TODO Je sais pas pourquoi la copy fonctione pas pour cloner l'array on doit le remettre normal après
-        #  l'affichage
-        matrix_with_robot[robot_y][robot_x] -= 10
 
     def print_metric(self) -> None:
         print('-----METRIC-----')

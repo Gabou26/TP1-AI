@@ -7,6 +7,7 @@ Légende: Actions Robot
 4-Aspirer
 5-Cueillir
 """
+from exploration.grid_node import GridNode
 
 
 class Uninformed:

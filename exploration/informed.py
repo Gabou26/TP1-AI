@@ -8,7 +8,8 @@ Légende: Actions Robot
 5-Cueillir
 """
 
-from grid_node import GridNode
+from exploration.grid_node import GridNode
+
 
 class Informed:
     def __call__(self) -> None:
