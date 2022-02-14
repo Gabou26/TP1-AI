@@ -4,13 +4,12 @@ Générateur de poussière et bijoux
 import random
 
 from communication.environment_controller import EnvironmentController
+from simulator.tweak import Tweak
 
 
 class Generator:
     am_i_alive = 1
     name = 'Manoir'
-    dust_generation_rate = 30
-    jewel_generation_rate = 5
     environment_controller = EnvironmentController()
 
     def __call__(self) -> None:
@@ -25,6 +24,7 @@ class Generator:
         if self.should_add_dust():
             print("Dust spawn")
             self.add_item(1)
+
         if self.should_add_jewel():
             print("Jewel spawn")
             self.add_item(2)
@@ -38,17 +38,17 @@ class Generator:
 
     def should_add_dust(self):
         """
-        Nous avons 30 % de chance de généré une poussière
+        Nous avons X % de chance de généré une poussière
         """
-        if random.randint(0, 100) < self.dust_generation_rate:
+        if random.randint(0, 100) < Tweak().dust_generation_rate:
             return True
         return False
 
     def should_add_jewel(self):
         """
-        Nous avons 5 % de chance de généré une un bijou
+        Nous avons X % de chance de généré une un bijou
         """
-        if random.randint(0, 100) < self.jewel_generation_rate:
+        if random.randint(0, 100) < Tweak().jewel_generation_rate:
             return True
         return True
 
