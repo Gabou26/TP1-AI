@@ -67,7 +67,7 @@ class Informed:
         for i in range(1, len(open_set)):
             new_cost = open_set[i].f_cost()
             if new_cost < lowest_cost:
-                lowest_node = new_cost
+                lowest_cost = new_cost
                 lowest_node = open_set[i]
         #Retrait open node choisi
         open_set.remove(lowest_node)

@@ -47,6 +47,8 @@ class Environment:
         # Ajout du joueur
         if self.contained_matrix(self.robot_position_x, self.robot_position_y, matrix_robot):
             matrix_robot[self.robot_position_y][self.robot_position_x] += 10
+
+        matrix_robot[3][2] = 1
         return matrix_robot
 
     def contained_matrix(self, pos_x, pos_y, matrix):
@@ -90,7 +92,9 @@ class Environment:
         robot_y = 1
         dest_x = 4
         dest_y = 4
-        path = uninformed.calculate_path(robot_x, robot_y, dest_x, dest_y, self.matrix)
+
+        matrix_test = self.get_matrix()
+        path = uninformed.calculate_path(robot_x, robot_y, dest_x, dest_y, matrix_test)
         print("Chemin non-informé : " + str(path))
-        path_informed = informed.calculate_path(robot_x, robot_y, dest_x, dest_y, self.matrix)
+        path_informed = informed.calculate_path(robot_x, robot_y, dest_x, dest_y, matrix_test)
         print("Chemin informé : " + str(path_informed))
