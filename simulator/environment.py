@@ -43,9 +43,18 @@ class Environment:
             matrix_robot.append([])
             for x in range(len(self.matrix[y])):
                 matrix_robot[y].append(self.matrix[y][x])
+
         # Ajout du joueur
-        matrix_robot[self.robot_position_y][self.robot_position_x] += 10
-        return matrix_robot.copy()
+        if self.contained_matrix(self.robot_position_x, self.robot_position_y, matrix_robot):
+            matrix_robot[self.robot_position_y][self.robot_position_x] += 10
+        return matrix_robot
+
+    def contained_matrix(self, pos_x, pos_y, matrix):
+        if pos_y >= len(matrix) or pos_y < 0:
+            return False
+        if pos_x >= len(matrix[len(matrix)-1]) or pos_x < 0:
+            return False
+        return True
 
     def get_slot_data(self, x, y):
         return self.matrix[y][x]
@@ -77,9 +86,12 @@ class Environment:
     #Temp pour test exploration
     def test_exploration(self):
         uninformed = Uninformed()
+        informed = Informed()
         robot_x = 1
         robot_y = 1
-        dest_x = 3
-        dest_y = 3
+        dest_x = 4
+        dest_y = 4
         path = uninformed.calculate_path(robot_x, robot_y, dest_x, dest_y, self.matrix)
         print("Chemin non-informé : " + str(path))
+        path_informed = informed.calculate_path(robot_x, robot_y, dest_x, dest_y, self.matrix)
+        print("Chemin informé : " + str(path_informed))

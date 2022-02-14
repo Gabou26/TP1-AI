@@ -26,7 +26,7 @@ class Informed:
         closed_set = []
 
         #Obtention node début et fin
-        start_node = grid[robot_y][robot_y]
+        start_node = grid[robot_y][robot_x]
         target_node = grid[dest_y][dest_x]
         self.generate_h_cost(grid, target_node)
         open_set.append(start_node)
@@ -34,7 +34,7 @@ class Informed:
         while len(open_set) > 0:
             cur_node = self.get_lowest_node(open_set)
             closed_set.append(cur_node)
-
+            # print(" x:" + str(cur_node.pos_x) + " y:" + str(cur_node.pos_y))
             #Fin si node choisi est le noyau de fin
             if cur_node == target_node:
                 path_success = True
@@ -42,17 +42,17 @@ class Informed:
 
             #Analyse chaque voisin de la case courante
             for neighbour in self.get_neighbours(cur_node, grid):
-                if is_closed(neighbour):
+                if self.is_closed(neighbour, closed_set):
                     continue
                 #MAJ set de voisins si ouvert
-                open_set = update_open_set(cur_node, neighbour, open_set)
+                open_set = self.update_open_set(cur_node, neighbour, open_set)
 
         path = []
         if path_success:
-            path = retrace_path(start_node, target_node)
+            path = self.retrace_path(start_node, target_node)
 
         #Retourne le chemin d'actions à prendre
-        return generate_action_plan(path)
+        return self.generate_action_plan(path)
 
     def contains_dust(self, pos_x, pos_y, matrix):
         data_id = matrix[pos_x, pos_y]
@@ -69,6 +69,8 @@ class Informed:
             if new_cost < lowest_cost:
                 lowest_node = new_cost
                 lowest_node = open_set[i]
+        #Retrait open node choisi
+        open_set.remove(lowest_node)
         return lowest_node
 
     def get_neighbours(self, cur_node, grid):
@@ -89,16 +91,17 @@ class Informed:
 
     def generate_grid(self, matrix):
         grid = []
-        for y in range(0, len(matrix)):
+        for y in range(len(matrix)):
             grid.append([])
-            for x in range(0, len(matrix[y])):
+            for x in range(len(matrix[y])):
                 grid[y].append(GridNode(x, y, matrix[y][x]))
         return grid
 
     def generate_h_cost(self, grid, target_node):
-        for node in grid:
-            if node is not target_node:
-                node.h_cost = self.get_distance(node, target_node)
+        for grid_y in grid:
+            for node in grid_y:
+                if node is not target_node:
+                    node.h_cost = self.get_distance(node, target_node)
 
     def is_closed(self, node, closed_set):
         for closed in closed_set:
@@ -127,36 +130,37 @@ class Informed:
         #Calcul du chemin à prendre
         while cur_node != start_node:
             path.append(cur_node)
-            cur_node = cur_node.parent #Get next node in path
+            cur_node = cur_node.path_parent #Get next node in path
 
         path.append(start_node)
-        return path
+
+        #Reverse path
+        reversed_path = []
+        for i in range(len(path)-1, -1, -1):
+            reversed_path.append(path[i])
+        return reversed_path
 
     def generate_action_plan(self, path):
         action_plan = []
+        if (len(path) == 0):
+            return action_plan
 
         dir_x = 0
         dir_y = 0
 
-        #Action de départ si chemin
-        if len(path) > 0:
-            if path[0].data_id == 1 or path[0].data_id == 3:
-                action_plan.append(4) #Aspirer Poussière
-            elif path[0].data_id == 2:
-                action_plan.append(5) #Cueillir Bijou
-
+        prev_node = path[0]
         # Get direction + actions
-        for i in range(1, len(path)):
+        for i in range(len(path)):
             #Check Directions
-            dir_x = path[i].pos_x - path[i-1].pos_x
-            dir_y = path[i].pos_y - path[i - 1].pos_y
+            dir_x = path[i].pos_x - prev_node.pos_x
+            dir_y = path[i].pos_y - prev_node.pos_y
             if dir_x < 0:  # Gauche
                 action_plan.append(0)
             elif dir_x > 0:   #Droits
                 action_plan.append(1)
-            elif dir_y < 0:   #Haut
+            elif dir_y > 0:   #Haut
                 action_plan.append(2)
-            elif dir_y > 0:   #Bas
+            elif dir_y < 0:   #Bas
                 action_plan.append(3)
 
             # Regarde si le robot doit aspirer/cueillir
@@ -164,5 +168,7 @@ class Informed:
                 action_plan.append(4) #Aspirer Poussière
             elif path[i].data_id == 2:
                 action_plan.append(5) #Cueillir Bijou
+
+            prev_node = path[i]
 
         return action_plan

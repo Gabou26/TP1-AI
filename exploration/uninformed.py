@@ -72,12 +72,12 @@ class Uninformed:
             self.path.append(5)
 
     def contains_dust(self, pos_x, pos_y, matrix):
-        data_id = matrix[pos_x, pos_y]
+        data_id = matrix[pos_y][pos_x]
         if data_id == 1 or data_id == 3:
             return True
         return False
 
     def contains_jewel(self, pos_x, pos_y, matrix):
-        if matrix[pos_x, pos_y] == 2:
+        if matrix[pos_y][pos_x] == 2:
             return True
         return False

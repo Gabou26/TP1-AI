@@ -15,12 +15,14 @@ class GridNode:
         return
 
     def __init__(self, pos_x, pos_y, data_id):
-        self.pos_y = pos_x
+        self.pos_x = pos_x
         self.pos_y = pos_y
         self.data_id = data_id
 
     def f_cost(self):
         value = self.g_cost + self.h_cost
         if self.data_id == 1 or self.data_id == 3:
-            value += 5
+            value -= 5
+        elif self.data_id == 2:
+            value -= 8
         return value
