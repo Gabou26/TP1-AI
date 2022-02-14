@@ -3,6 +3,15 @@ C'est l'algorithme de recherche
 """
 from dbi.state import State
 
+"""
+Légende: Actions Robot
+0-Gauche
+1-Droite
+2-Haut
+3-Bas
+4-Aspirer
+5-Cueillir
+"""
 
 class Desire:
     def __call__(self) -> None:
