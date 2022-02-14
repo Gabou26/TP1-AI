@@ -72,7 +72,6 @@ class Environment:
     def set_robot_position(self, x, y):
         self.robot_position_x = x
         self.robot_position_y = y
-        pass
 
     #Temp pour test exploration
     def test_exploration(self):

@@ -5,7 +5,7 @@ import threading
 import time
 
 from simulator import environment
-from simulator.robot import Robot
+from robot.robot import Robot
 from simulator.generator import Generator
 
 
@@ -33,20 +33,22 @@ def environment_generator_loop(sleep) -> None:
 
 
 class ThreadManager:
-    robot_sleep_second = 2
-    generator_sleep_second = 3
 
     def __call__(self) -> None:
         return
 
-    def start(self):
+    def start_robot(self, robot_loop_sleep):
         """
-        Démarre tous les threads
+        Démarre le thread du robot
+        """
+
+        robot = threading.Thread(target=robot_loop, args=(robot_loop_sleep,))
+        robot.start()
+
+    def start_generator(self, generator_loop_sleep):
+        """
+        Démarre le générateur de poussière et de bijou
         """
         # Programme le thread sur la function loop
-        generator = threading.Thread(target=environment_generator_loop, args=(self.generator_sleep_second,))
+        generator = threading.Thread(target=environment_generator_loop, args=(generator_loop_sleep,))
         generator.start()
-
-        robot = threading.Thread(target=robot_loop, args=(self.robot_sleep_second,))
-        robot.start()
-        pass

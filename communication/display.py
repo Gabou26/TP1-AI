@@ -2,7 +2,8 @@
 Affichage
 """
 from communication.environment_controller import EnvironmentController
-from simulator.robot import Robot
+from robot.robot import Robot
+from simulator.tweak import Tweak
 
 
 class Display:
@@ -19,7 +20,9 @@ class Display:
         Affichage de la matrice
         """
         matrix = self.environment_controller.environment.get_matrix()
-        print('------MAP-------')
+        if Tweak().debug:
+            print('------MAP-------')
+
         for y in range(len(matrix)):
             print(matrix[y])
 
@@ -27,10 +30,15 @@ class Display:
 
         self.print_state()
 
+        # TODO Terminé
+        # self.environment_controller.need_screen_refresh = False
+
     def print_metric(self) -> None:
-        print('-----METRIC-----')
-        print(vars(self.metric))
+        if Tweak().debug:
+            print('-----METRIC-----')
+            print(vars(self.metric))
 
     def print_state(self) -> None:
-        print('-----STATE-----')
-        print(vars(self.state))
+        if Tweak().debug:
+            print('-----STATE-----')
+            print(vars(self.state))
