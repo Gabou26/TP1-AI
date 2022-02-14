@@ -9,7 +9,7 @@ Légende: Actions Robot
 """
 
 
-class Desire:
+class Uninformed:
     def __call__(self) -> None:
         return
 
@@ -29,7 +29,7 @@ class Desire:
                 pos_cour_x += 1
                 diff_x -= 1
                 path.append(1)
-            if diff_x < 0:
+            elif diff_x < 0:
                 pos_cour_x -= 1
                 diff_x += 1
                 path.append(0)
@@ -42,19 +42,26 @@ class Desire:
                 pos_cour_y += 1
                 diff_y -= 1
                 path.append(2)
-            if diff_y < 0:
+            elif diff_y < 0:
                 pos_cour_y -= 1
                 diff_y += 1
                 path.append(3)
+
+            #Check Actions
             if self.contains_dust(pos_cour_x, pos_cour_y, matrix):
                 path.append(4)
+            elif self.contains_jewel(pos_cour_x, pos_cour_y, matrix):
+                path.append(5)
 
-        # Arrivé à la position de fin, collecte le bijou
-        path.append(5)
         return path
 
     def contains_dust(self, pos_x, pos_y, matrix):
         data_id = matrix[pos_x, pos_y]
-        if data_id == 4:
+        if data_id == 1 or data_id == 3:
+            return True
+        return False
+
+    def contains_jewel(self, pos_x, pos_y, matrix):
+        if matrix[pos_x, pos_y] == 2:
             return True
         return False

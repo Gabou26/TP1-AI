@@ -1,7 +1,11 @@
 """
-Environment
+Légende: Data Environnement
+0-Case Vide
+1-Case Poussière
+2-Case Bijou
+3-Case Poussière+Bijou
+10-Case Joueur
 """
-
 
 class Environment:
     length_x = 5
