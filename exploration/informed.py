@@ -14,6 +14,9 @@ class Informed:
     def __call__(self) -> None:
         return
 
+    def __init__(self):
+        return
+
     #Params : Pos Robot - Pos Destination
     def calculate_path(self, robot_x, robot_y, dest_x, dest_y, matrix) -> []:
         path_success = False
