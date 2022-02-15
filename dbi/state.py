@@ -12,6 +12,7 @@ class State:
     matrix = None
     action_plan = None
     all_peace_is_clean = False
+    exploration_informed = False
 
 
     def __call__(self) -> None:
@@ -40,6 +41,7 @@ class State:
             self.all_peace_is_clean = True
 
         self.matrix = environment.matrix
-        # TODO Utiliser les metrics pour mettre des infos dans l'état
 
-        pass
+        if metric.total_iteration > 5:
+            self.exploration_informed = True
+

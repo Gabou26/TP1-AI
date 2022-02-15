@@ -26,21 +26,23 @@ class Desire:
             print("Travail terminé !")
             return []
 
-        uninformed = Uninformed()
-        informed = Informed()
-
         next_object = state.object_available[0]
         dest_x = next_object[0]
         dest_y = next_object[1]
-        print("robot_x:" + str(state.x))
-        print("robot_y:" + str(state.y))
-        print("destination_x:"+str(dest_x))
-        print("destination_y:"+str(dest_y))
+        #print("robot_x:" + str(state.x))
+        #print("robot_y:" + str(state.y))
+        #print("destination_x:" + str(dest_x))
+        #print("destination_y:" + str(dest_y))
 
-        path = uninformed.calculate_path(state.x,  state.y, dest_x, dest_y, state.matrix)
-        print("Chemin non-informé : " + str(path))
+        if not state.exploration_informed :
+            uninformed = Uninformed()
+            path = uninformed.calculate_path(state.x,  state.y, dest_x, dest_y, state.matrix)
+            print("Chemin non-informé : " + str(path))
+            return path
+        else:
+            informed = Informed()
+            path = informed.calculate_path(state.x, state.y, dest_x, dest_y, state.matrix)
+            print("Chemin informé : " + str(path))
+            return path
 
-        #path_informed = informed.calculate_path(state.x, state.y, dest_x, dest_y, state.matrix)
-        #print("Chemin informé : " + str(path_informed))
-        return path
 

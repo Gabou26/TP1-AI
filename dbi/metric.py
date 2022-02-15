@@ -5,6 +5,7 @@ Tous les indicateurs de performance que le robot possède
 
 class Metric:
     total_move = 0
+    total_iteration = 0
     total_aspired_dust = 0
     total_aspired_jewel = 0
     total_collected_jewel = 0
@@ -25,6 +26,7 @@ class Metric:
         self.total_collected_jewel += 1
 
     def update(self, updated_metric: []) -> None:
+        self.total_iteration += 1
         for i in range(len(updated_metric)):
             if updated_metric[i] == 'move':
                 self.count_move()
