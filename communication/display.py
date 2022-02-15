@@ -25,8 +25,8 @@ class Display:
         for y in range(len(matrix)-1, -1, -1):
             print(matrix[y])
 
-        print('------TEST EXPLORATION-------')
-        print(str(self.environment_controller.environment.test_exploration()))
+        #print('------TEST EXPLORATION-------')
+        #print(str(self.environment_controller.environment.test_exploration()))
 
         self.print_metric()
 

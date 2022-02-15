@@ -2,6 +2,7 @@
 Controller pour utiliser l'environement
 Rend l'écriture dans l'environment thread safe
 """
+
 from simulator.environment import Environment
 from threading import Lock
 
@@ -22,4 +23,11 @@ class EnvironmentController:
     def set_robot_position(self, x, y) -> None:
         self.lock.acquire()
         self.environment.set_robot_position()
+        self.lock.release()
+        # self.need_screen_refresh = True
+
+    def clear_piece(self, x, y) -> None:
+        print ("clear"+x+","+y)
+        self.lock.acquire()
+        self.environment.matrix[y][x] = 0
         self.lock.release()

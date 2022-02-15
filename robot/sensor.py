@@ -26,5 +26,5 @@ class Sensor:
                 if matrix[y][x] in (1, 2, 3):
                     object_found.append([x, y])
         nb = str(len(object_found))
-        print("Objet found:"+nb)
+        #print("Objet found:"+nb)
         return object_found
