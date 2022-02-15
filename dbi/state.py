@@ -9,7 +9,7 @@ class State:
     x = None
     y = None
     object_available = []
-    matrix = []
+    matrix = None
     action_plan = None
     all_peace_is_clean = False
 
@@ -39,5 +39,7 @@ class State:
         else:
             self.all_peace_is_clean = True
 
+        self.matrix = environment.get_matrix()
         # TODO Utiliser les metrics pour mettre des infos dans l'état
+
         pass

@@ -16,7 +16,7 @@ class Intention:
             print("Aucun plan d'action à faire")
             return []
         next_move = action_plan[0]
-        print("print next move". next_move)
+        print("print next move" + str(next_move))
         updated_metric = []
         # TODO Vérifier si les directions sont les bonnes
         if next_move == 2:
