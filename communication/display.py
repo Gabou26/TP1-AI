@@ -22,8 +22,8 @@ class Display:
         matrix = self.environment_controller.environment.get_matrix()
         if Tweak().debug:
             print('------MAP-------')
-            for y in range(len(matrix)-1, -1, -1):
-                print(matrix[y])
+        for y in range(len(matrix)-1, -1, -1):
+            print(matrix[y])
 
         print('------TEST EXPLORATION-------')
         print(str(self.environment_controller.environment.test_exploration()))

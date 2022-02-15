@@ -8,9 +8,11 @@ from simulator.environment import Environment
 class State:
     x = None
     y = None
+    object_available = []
+    matrix = []
     action_plan = None
     all_peace_is_clean = False
-    collected_all_jewel = False
+
 
     def __call__(self) -> None:
         return
@@ -30,6 +32,12 @@ class State:
         # self.set_current_position(environment.robot_position_x, environment.robot_position_y)
         self.x = environment.robot_position_x
         self.y = environment.robot_position_y
+
+        # S'il contient toujours quelque chose dans les pièces
+        if self.object_available:
+            self.all_peace_is_clean = False
+        else:
+            self.all_peace_is_clean = True
 
         # TODO Utiliser les metrics pour mettre des infos dans l'état
         pass

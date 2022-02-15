@@ -1,4 +1,3 @@
-from communication.environment_controller import EnvironmentController
 from dbi.metric import Metric
 from dbi.state import State
 from robot.sensor import Sensor
@@ -19,13 +18,8 @@ class Believe:
         Entièrement observable
         """
 
-        # TODO On devrait se garder des listes de tous les poussières et de tous les bijoux et le stocker dans State
+        # Récupère tous les poussières et les bijoux existant
+        self.state.object_available = self.sensor.get_dust_and_jewel()
 
-        #sensor.get_dust_and_jewel();
-
-        #all_peace_is_clean = True
-
-        #collected_all_jewel = True
-
-        return EnvironmentController().environment
-
+        # Conserve la matrice dans son état interne
+        return self.sensor.get_environment()
